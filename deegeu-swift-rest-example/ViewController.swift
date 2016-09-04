@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     func updateIP() {
         
         // Setup the session to make REST GET call.  Notice the URL is https NOT http!!
-        let postEndpoint: String = "https://httpbin.org/ip"
+        let postEndpoint: String = "https://gegillam.info/exc"
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: postEndpoint)!
         
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
                 
                     // Parse the JSON to get the IP
                     let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-                    let origin = jsonDictionary["origin"] as! String
+                    let origin = jsonDictionary["a"] as! String
                    
                     // Update the label
                     self.performSelectorOnMainThread("updateIPLabel:", withObject: origin, waitUntilDone: false)
@@ -61,7 +61,23 @@ class ViewController: UIViewController {
         }).resume()
     }
     
+    @IBAction func buttonClick(sender: AnyObject) {
+        let message = sender.currentTitle!
+
+        
+        switch (message) {
+        case  "Refresh"?:
+            print ("Refresh")
+            updateIP()
+        default:
+            print("defual;t")
+        }
+        
+        
+        
+    }
     
+
     func postDataToURL() {
         
         // Setup the session to make REST POST call
@@ -102,7 +118,7 @@ class ViewController: UIViewController {
     
 //MARK: - Methods to update the UI immediately
     func updateIPLabel(text: String) {
-        self.ipLabel.text = "Your IP is " + text
+        self.ipLabel.text =  text
     }
     
     func updatePostLabel(text: String) {
